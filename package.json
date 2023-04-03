@@ -2,7 +2,7 @@
   "name": "adot-xray",
   "version": "1.0.0",
   "description": "tracing and logging using aws distro for opentelemetry",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc"
