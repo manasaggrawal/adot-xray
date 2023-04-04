@@ -5,7 +5,10 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "tsc",
+    "prepare": "npm run build",
+   "version": "git add -A src",
+   "postversion": "git push && git push --tags"
   },
   "keywords": [
     "aws",
@@ -14,7 +17,7 @@
     "logging",
     "opentelemetry"
   ],
-  "author": "Manas Aggrawal (manasagg7199@gmail.com)",
+  "author": "Manas Aggrawal",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^18.15.11",
@@ -32,5 +35,6 @@
     "express-http-context": "^1.2.4",
     "typedi": "^0.10.0",
     "winston": "^3.8.2"
-  }
+  },
+  "files": ["dist/**/*"]
 }
