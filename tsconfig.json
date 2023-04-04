@@ -8,6 +8,7 @@
       "target": "es6",
       "outDir": "dist",
       "skipLibCheck": true,
+      "declaration": true,
       "typeRoots": ["./src/types", "./node_modules/@types"]
     },
     "include": ["src/**/*", "index.ts"],
