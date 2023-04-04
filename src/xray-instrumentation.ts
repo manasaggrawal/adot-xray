@@ -8,7 +8,10 @@ import { AWSXRayIdGenerator } from "@opentelemetry/id-generator-aws-xray";
 import * as opentelemetry from "@opentelemetry/sdk-node";
 import { getNodeAutoInstrumentations } from "@opentelemetry/auto-instrumentations-node";
 
-export function adotInit() {
+export function adotInit(
+  resourceServiceName: string,
+  healthCheckEndpointUrl: string
+) {
   const traceExporter = new OTLPTraceExporter();
 
   const spanProcessor = new BatchSpanProcessor(traceExporter);
@@ -22,7 +25,7 @@ export function adotInit() {
       getNodeAutoInstrumentations({
         "@opentelemetry/instrumentation-http": {
           ignoreIncomingRequestHook: (request) => {
-            return request.url.includes("/healthz");
+            return request.url.includes(healthCheckEndpointUrl);
           },
         },
         "@opentelemetry/instrumentation-aws-sdk": {
@@ -30,14 +33,14 @@ export function adotInit() {
         },
         "@opentelemetry/instrumentation-winston": {
           logHook: (span, record) => {
-            record["resource.service.name"] = "main-node";
+            record["resource.service.name"] = resourceServiceName;
           },
         },
       }),
     ],
     resource: Resource.default().merge(
       new Resource({
-        [SemanticResourceAttributes.SERVICE_NAME]: "main-node",
+        [SemanticResourceAttributes.SERVICE_NAME]: resourceServiceName,
       })
     ),
     spanProcessor,
