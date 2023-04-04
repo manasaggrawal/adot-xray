@@ -30,14 +30,14 @@ export function adotInit() {
         },
         "@opentelemetry/instrumentation-winston": {
           logHook: (span, record) => {
-            record["resource.service.name"] = "oddschecker";
+            record["resource.service.name"] = "main-node";
           },
         },
       }),
     ],
     resource: Resource.default().merge(
       new Resource({
-        [SemanticResourceAttributes.SERVICE_NAME]: "oddschecker",
+        [SemanticResourceAttributes.SERVICE_NAME]: "main-node",
       })
     ),
     spanProcessor,
